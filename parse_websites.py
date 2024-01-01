@@ -273,23 +273,23 @@ for page in range(1,page_max +1):
         html_content = open_website_with_selenium(url)
         soup = BeautifulSoup(html_content, 'html.parser')
         title = soup.find('title').get_text(strip=True)
-        # filepath = './test/' + sanitize_filename(title) + '.html'
-        # writeToFile(html_content, filepath)
+        filepath = './urls/' + sanitize_filename(title) + '.html'
+        writeToFile(html_content, filepath)
 
-        unit_dicts = get_unit_details(soup.find_all('div', class_:='priceGridModelWrapper js-unitContainer mortar-wrapper'))
-        unit_dicts = remove_dict_duplicates(unit_dicts)
+        # unit_dicts = get_unit_details(soup.find_all('div', class_:='priceGridModelWrapper js-unitContainer mortar-wrapper'))
+        # unit_dicts = remove_dict_duplicates(unit_dicts)
 
-        my_dict = {
-            'title': title,
-            'url': url,
-            'units': unit_dicts,
-        }
+        # my_dict = {
+        #     'title': title,
+        #     'url': url,
+        #     'units': unit_dicts,
+        # }
 
-        units.append(my_dict)
-        count += 1
+        # units.append(my_dict)
+        # count += 1
 
-content = json.dumps(units, indent=4, sort_keys=False)
-writeToFile(content, './test/unit_details.json')
+# content = json.dumps(units, indent=4, sort_keys=False)
+# writeToFile(content, './test/unit_details.json')
 
 
     # soup = BeautifulSoup(html_content, 'html.parser')

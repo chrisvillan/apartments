@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartment Cards</title>
+  <style>
+    /* Add some basic styling for the cards and units */
+    .card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 10px;
+      width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .unit {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="cards-container"></div>
+
+  <script>
+    // Replace with the URL of your JSON file
+    const jsonUrl = 'https://raw.githubusercontent.com/chrisvillan/apartments/master/test/unit_details.json';
+
+    // Get the container element
+    const cardsContainer = document.getElementById('cards-container');
+
+    // Fetch JSON data from GitHub
+    fetch(jsonUrl)
+      .then(response => response.json())
+      .then(jsonData => {
+        // Loop through the JSON data and create cards
+        jsonData.forEach(item => {
+          // Create a div element for the card
+          const card = document.createElement('div');
+          card.classList.add('card');
+
+          // Create elements for title and url
+          const titleElement = document.createElement('h2');
+          titleElement.textContent = item.title;
+
+          const urlElement = document.createElement('a');
+          urlElement.href = item.url;
+          urlElement.textContent = 'Visit Apartment';
+
+          // Append elements to the card
+          card.appendChild(titleElement);
+          card.appendChild(urlElement);
+
+          // Create units section
+          const unitsSection = document.createElement('div');
+          unitsSection.classList.add('units-section');
+
+          // Loop through units and create unit elements
+          item.units.forEach(unit => {
+            const unitElement = document.createElement('div');
+            unitElement.classList.add('unit');
+            unitElement.textContent = `Unit Name: ${unit.name}, Type: ${unit.type}`;
+            unitsSection.appendChild(unitElement);
+          });
+
+          // Append units section to the card
+          card.appendChild(unitsSection);
+
+          // Append the card to the container
+          cardsContainer.appendChild(card);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching JSON:', error);
+      });
+  </script>
+</body>
+</html>
